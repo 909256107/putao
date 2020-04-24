@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.putao.dao.PutaoDao">
+    <select id="getAll" resultType="Putao" parameterType="java.util.Map">
+        select * from putao
+    </select>
+    
+    <delete id="delById" parameterType="java.lang.Integer">
+        delete  from putao where id = ${id}
+    </delete>
+
+    <insert id="save" parameterType="com.putao.domain.Putao">
+        insert into putao(name,bieming,characters,forms,projects) value(
+            #{name},
+            #{bieming},
+            #{characters},
+            #{forms},
+            #{projects}
+        )
+    </insert>
+</mapper>

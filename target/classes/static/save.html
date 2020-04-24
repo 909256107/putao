@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label for="name">品种名称</label>
+            <input type="email" class="form-control" id="name" placeholder="品种名称">
+        </div>
+        <div class="form-group">
+            <label for="bieming">别名</label>
+            <input type="email" class="form-control" id="bieming" placeholder="别名">
+        </div>
+        <div class="form-group">
+            <label for="characters">品种特性</label>
+            <input type="email" class="form-control" id="characters" placeholder="品种特性">
+        </div>
+        <div class="form-group">
+            <label for="forms">来源</label>
+            <input type="email" class="form-control" id="forms" placeholder="来源">
+        </div>
+        <div class="form-group">
+            <label for="projects">栽培事项</label>
+            <input type="email" class="form-control" id="projects" placeholder="栽培事项">
+        </div>
+        <input id="sub" type="button" class="btn btn-success form-control" value="添加">
+    </form>
+</div>
+
+
+
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+    $("#sub").click(function () {
+        var tname = $("#name").val();
+        var tbieming = $("#bieming").val();
+        var tcharacters = $("#characters").val();
+        var tforms = $("#forms").val();
+        var tprojects = $("#projects").val();
+
+        //判断是否为空
+        if(tname.length>0&&tbieming.length>0&&tcharacters.length>0&&tforms.length>0&&tprojects.length>0){
+            //封装数据，并提交给后端接口
+            var putao={
+                "name" : tname,
+                "bieming":tbieming,
+                "characters":tcharacters,
+                "forms":tforms,
+                "projects":tprojects
+            };
+            //将实体类转换为json
+            var putaoJson = JSON.stringify(putao);
+            alert("程序到这里了"+putaoJson);
+            //提交给后端接口
+            $.post({
+                url:'putao/save',
+                data:putaoJson,
+                contentType:'application/json',
+                dataType: "json",
+                success:function (data) {
+                    if(data.msg){
+                        location.href="index.html";
+                    }
+                }
+            });
+        }else{
+            alert("所填信息为空！！")
+            return;//不让程序执行
+        }
+
+    })
+</script>
